@@ -15,6 +15,7 @@ namespace NZWalks.API.Repositories
         }
 
         public async Task<List<Region>> GetAllAsync()
+
         {
             return new List<Region>()
             {
