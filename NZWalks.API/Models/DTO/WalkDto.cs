@@ -13,7 +13,8 @@
 
         public Guid RegionId { get; set; }
 
-        public RegionDto Region { get; set; }
+        public RegionDtoV1 Region { get; set; }
+        //public RegionDtoV2 Region { get; set; }
         public DifficultyDto Difficulty { get; set; }
     }
 }

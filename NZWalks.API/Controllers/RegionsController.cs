@@ -10,8 +10,10 @@ using System.Text.Json;
 
 namespace NZWalks.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
     public class RegionsController : ControllerBase
     {
         private readonly NZWalksDbContext _dbContext;
@@ -31,11 +33,12 @@ namespace NZWalks.API.Controllers
         }
 
         //GET ALL REGIONS
-        // GET: https://localhost:portnumber/api/regions
+        // GET: https://localhost:portnumber/api/v1/regions
+        [MapToApiVersion("1.0")]
+        //[MapToApiVersion("2.0")]
         [HttpGet]
-        [Authorize(Roles = "Reader,Writer")]
-
-        public async Task<IActionResult> GetAll() 
+        //[Authorize(Roles = "Reader,Writer")]
+        public async Task<IActionResult> GetAllV1() 
         {
             // try {
             // throw custom exception
@@ -47,7 +50,7 @@ namespace NZWalks.API.Controllers
             _logger.LogInformation($"Finished GetAllRegions request with data: {JsonSerializer.Serialize(regionsDomain)}"); // Convert object to json data
                                
                 //Map Domain Models to DTOs and Return DTOs
-                return Ok(_mapper.Map<List<RegionDto>>(regionsDomain));
+                return Ok(_mapper.Map<List<RegionDtoV1>>(regionsDomain));
             //}
             //catch (Exception ex)
             //{
@@ -58,6 +61,24 @@ namespace NZWalks.API.Controllers
             //}
             
         }
+
+        //GET ALL REGIONS
+        // GET: https://localhost:portnumber/api/v2/regions
+        [MapToApiVersion("2.0")]
+        [HttpGet]
+        //[Authorize(Roles = "Reader,Writer")]
+        public async Task<IActionResult> GetAllV2()
+        {
+            var regionsDomain = await _regionRepository.GetAllAsync();
+
+            // Log response data
+            _logger.LogInformation($"Finished GetAllRegions request with data: {JsonSerializer.Serialize(regionsDomain)}"); // Convert object to json data
+
+            //Map Domain Models to DTOs and Return DTOs
+            return Ok(_mapper.Map<List<RegionDtoV2>>(regionsDomain));
+            
+        }
+
 
         //GET SINGLE REGION ( Get Regions By ID)
         // GET: https://localhost:portnumber/api/regions/{id}
@@ -80,7 +101,7 @@ namespace NZWalks.API.Controllers
             }
             // Map/Convert Region Domain Model to Region DTO
             
-            return Ok(_mapper.Map<List<RegionDto>>(regionDomain));
+            return Ok(_mapper.Map<List<RegionDtoV1>>(regionDomain));
         }
 
         //POST To Create New Region
@@ -96,7 +117,7 @@ namespace NZWalks.API.Controllers
             regionDomainModel = await _regionRepository.CreateAsync(regionDomainModel);
 
             // Map Domain model back to DTO
-            var regionDto = _mapper.Map<RegionDto>(regionDomainModel);
+            var regionDto = _mapper.Map<RegionDtoV1>(regionDomainModel);
 
             return CreatedAtAction(nameof(GetById), new {id = regionDto.Id }, regionDto);
 
@@ -124,7 +145,7 @@ namespace NZWalks.API.Controllers
             } 
 
             // Convert Domain Model to DTO
-            return Ok(_mapper.Map<RegionDto>(regionDomainModel));
+            return Ok(_mapper.Map<RegionDtoV1>(regionDomainModel));
         }
 
         // Delete Region
@@ -143,7 +164,7 @@ namespace NZWalks.API.Controllers
 
             // Return deleted Region back
             // Map Domain Model to DTO
-            return Ok(_mapper.Map<RegionDto>(regionDomainModel));
+            return Ok(_mapper.Map<RegionDtoV1>(regionDomainModel));
 
         }
 
