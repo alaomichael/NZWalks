@@ -54,8 +54,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen( options =>
 {
-    options.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo { Title = "NZ Walks API", Version = "v1" });
-    //options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "NZ Walks API", Version = "v2" });
+    options.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo { Title = "NZ Walks API", Version = "1.0" });
 
     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {

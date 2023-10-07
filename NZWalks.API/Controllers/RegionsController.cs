@@ -35,9 +35,8 @@ namespace NZWalks.API.Controllers
         //GET ALL REGIONS
         // GET: https://localhost:portnumber/api/v1/regions
         [MapToApiVersion("1.0")]
-        //[MapToApiVersion("2.0")]
         [HttpGet]
-        //[Authorize(Roles = "Reader,Writer")]
+        [Authorize(Roles = "Reader,Writer")]
         public async Task<IActionResult> GetAllV1() 
         {
             // try {
@@ -66,7 +65,7 @@ namespace NZWalks.API.Controllers
         // GET: https://localhost:portnumber/api/v2/regions
         [MapToApiVersion("2.0")]
         [HttpGet]
-        //[Authorize(Roles = "Reader,Writer")]
+        [Authorize(Roles = "Reader,Writer")]
         public async Task<IActionResult> GetAllV2()
         {
             var regionsDomain = await _regionRepository.GetAllAsync();

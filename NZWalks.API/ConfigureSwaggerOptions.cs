@@ -15,8 +15,6 @@ namespace NZWalks.API
         }
         public void Configure(string? name, SwaggerGenOptions options)
         {
-            //Console.WriteLine("options line 18", options);
-            
             Configure(options);
         }
 
@@ -40,7 +38,7 @@ namespace NZWalks.API
         
             var info = new OpenApiInfo
             {
-                Title = "NZWalks API",
+                Title = "NZ Walks API",
                 Version = description.ApiVersion.ToString(),
             };
 
