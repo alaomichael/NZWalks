@@ -25,7 +25,7 @@ namespace NZWalks.API
             {
                 options.SwaggerDoc(item.GroupName, CreateVersionInfo(item));
             }
-            //for (int i = 1; i < listOfApiVersionDescriptions.Count(); i++)
+            //for (int i = 0; i < listOfApiVersionDescriptions.Count(); i++)
             //{
             //    var currentItem = listOfApiVersionDescriptions[i];
             //    //Console.WriteLine("currentItem line 38", currentItem);
