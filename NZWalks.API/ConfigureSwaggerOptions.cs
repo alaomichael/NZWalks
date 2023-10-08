@@ -21,16 +21,16 @@ namespace NZWalks.API
         public void Configure(SwaggerGenOptions options)
         {
             var listOfApiVersionDescriptions = _apiVersionDescriptionProvider.ApiVersionDescriptions;
-            //foreach (var item in listOfApiVersionDescriptions)
-            //{
-            //    options.SwaggerDoc(item.GroupName, CreateVersionInfo(item));
-            //}
-            for (int i = 1; i < listOfApiVersionDescriptions.Count(); i++)
+            foreach (var item in listOfApiVersionDescriptions)
             {
-                var currentItem = listOfApiVersionDescriptions[i];
-                //Console.WriteLine("currentItem line 38", currentItem);
-                options.SwaggerDoc(currentItem.GroupName, CreateVersionInfo(currentItem));
+                options.SwaggerDoc(item.GroupName, CreateVersionInfo(item));
             }
+            //for (int i = 1; i < listOfApiVersionDescriptions.Count(); i++)
+            //{
+            //    var currentItem = listOfApiVersionDescriptions[i];
+            //    //Console.WriteLine("currentItem line 38", currentItem);
+            //    options.SwaggerDoc(currentItem.GroupName, CreateVersionInfo(currentItem));
+            //}
         }
 
         private OpenApiInfo CreateVersionInfo(ApiVersionDescription description)
